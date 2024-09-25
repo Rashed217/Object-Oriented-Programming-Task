@@ -20,7 +20,24 @@ namespace OOP_Task
             Balance = initialBalance;
         }
 
-        
+        public decimal GetBalance()
+        { 
+            return Balance;
+        }
+
+        public void Deposit(decimal amount)
+        {
+            if (amount < 0)
+            {
+                Balance += amount;
+            }
+        }
+
+        public string ToSrting()
+        {
+            return $"AccountNumber: {AccountNumber}, Account Holder: {AccountHolderName}, Balance: {Balance}";
+        }
+
     }
 
 
