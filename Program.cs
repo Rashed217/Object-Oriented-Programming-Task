@@ -15,6 +15,10 @@
             bank.AddAccount (account1);
             bank.AddAccount (account2);
 
+            account1.Deposit(20);
+            account2.Deposit(10);
+            account1.
+
 
             // Display all accounts
             bank.DisplayAllAccount();

@@ -27,13 +27,40 @@ namespace OOP_Task
 
         public void Deposit(decimal amount)
         {
-            if (amount < 0)
+            if (amount > 0)
             {
                 Balance += amount;
+                Console.WriteLine($"Deposited: {amount:C} | New Balance: {Balance:C}");
+            }
+            else
+            {
+                Console.WriteLine("Deposit amount must be positive.");
             }
         }
 
-        public string ToSrting()
+
+        public void Withdraw(decimal amount)
+        {
+            if (amount > 0)
+            {
+                if (amount <= Balance)
+                {
+                    Balance -= amount;
+                    Console.WriteLine($"Withdrew: {amount} | New Balance: {Balance}");
+                }
+                else
+                {
+                    Console.WriteLine("Insufficient funds for withdrawal.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Withdrawal amount must be positive.");
+            }
+        }
+
+
+        public string GetAccountInfo()
         {
             return $"AccountNumber: {AccountNumber}, Account Holder: {AccountHolderName}, Balance: {Balance}";
         }
