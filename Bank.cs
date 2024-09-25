@@ -20,9 +20,17 @@ namespace OOP_Task
             Accounts.Add(account);
         }
 
-        public BankAccount GetAccountByNumber(string AccountNumber)
+        public BankAccount GetAccountByNumber(string accountNumber)
         {
+            return Accounts.Find(account => account.AccountNumber == accountNumber);
+        }
 
+        public void DisplayAllAccount()
+        {
+            foreach (var account in Accounts)
+            {
+                Console.WriteLine(account);
+            }
         }
     }
 }
