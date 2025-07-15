@@ -7,66 +7,68 @@ using System.Threading.Tasks;
 namespace OOP_Task
 {
     public class BankAccount
+{
+    public string HolderName { get; private set; }
+    public string AccountNumber { get; private set; }
+    public decimal Balance { get; private set; }
+    private List<string> transactionHistory;
+
+    public BankAccount(string holderName, string accountNumber, decimal initialDeposit)
     {
-        public string AccountNumber { get; }
-        public string AccountHolderName { get; }
+        HolderName = holderName;
+        AccountNumber = accountNumber;
+        Balance = initialDeposit;
+        transactionHistory = new List<string>();
 
-        private decimal Balance;
-
-        public BankAccount(string accountNumber, string accountHolder, decimal initialBalance)
+        if (initialDeposit > 0)
         {
-            AccountHolderName = accountHolder;
-            AccountNumber = accountNumber;
-            Balance = initialBalance;
+            transactionHistory.Add($"Initial deposit: {initialDeposit:C}");
         }
-
-        public decimal GetBalance()
-        { 
-            return Balance;
-        }
-
-        public void Deposit(decimal amount)
-        {
-            if (amount > 0)
-            {
-                Balance += amount;
-                Console.WriteLine($"Deposited: {amount:C} | New Balance: {Balance:C}");
-            }
-            else
-            {
-                Console.WriteLine("Deposit amount must be positive.");
-            }
-        }
-
-
-        public void Withdraw(decimal amount)
-        {
-            if (amount > 0)
-            {
-                if (amount <= Balance)
-                {
-                    Balance -= amount;
-                    Console.WriteLine($"Withdrew: {amount} | New Balance: {Balance}");
-                }
-                else
-                {
-                    Console.WriteLine("Insufficient funds for withdrawal.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Withdrawal amount must be positive.");
-            }
-        }
-
-
-        public string GetAccountInfo()
-        {
-            return $"AccountNumber: {AccountNumber}, Account Holder: {AccountHolderName}, Balance: {Balance}";
-        }
-
     }
 
+    public void Deposit(decimal amount)
+    {
+        if (amount > 0)
+        {
+            Balance += amount;
+            transactionHistory.Add($"Deposited: {amount:C}");
+            Console.WriteLine("Deposit successful.");
+        }
+        else
+        {
+            Console.WriteLine("Deposit amount must be greater than zero.");
+        }
+    }
 
+    public void Withdraw(decimal amount)
+    {
+        if (amount > 0 && amount <= Balance)
+        {
+            Balance -= amount;
+            transactionHistory.Add($"Withdrew: {amount:C}");
+            Console.WriteLine("Withdrawal successful.");
+        }
+        else
+        {
+            Console.WriteLine("Invalid withdrawal amount or insufficient balance.");
+        }
+    }
 
+    public void DisplayTransactionHistory()
+    {
+        Console.WriteLine($"\nTransaction History for {HolderName} (Account: {AccountNumber}):");
+        if (transactionHistory.Count == 0)
+        {
+            Console.WriteLine("No transactions yet.");
+        }
+        else
+        {
+            foreach (var transaction in transactionHistory)
+            {
+                Console.WriteLine(transaction);
+            }
+        }
+    }
+}
+    
 }
